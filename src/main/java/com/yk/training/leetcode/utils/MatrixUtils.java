@@ -1,4 +1,4 @@
-package com.yk.leetcode.utils;
+package com.yk.training.leetcode.utils;
 
 import java.util.List;
 

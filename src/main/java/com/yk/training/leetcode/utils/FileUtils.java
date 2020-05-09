@@ -1,4 +1,4 @@
-package com.yk.leetcode.utils;
+package com.yk.training.leetcode.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yk.leetcode.utils.MatrixUtils.buildMatrix;
+import static com.yk.training.leetcode.utils.MatrixUtils.buildMatrix;
 
 public class FileUtils {
 

@@ -1,36 +1,25 @@
-package com.yk.leetcode.number_of_islands;
-
-import com.yk.leetcode.utils.MatrixUtils;
+package com.yk.training.leetcode.number_of_islands;
 
 import java.util.LinkedList;
 
-import static com.yk.leetcode.utils.FileUtils.readMatrix;
-import static com.yk.leetcode.utils.MatrixUtils.printMatrix;
+import static com.yk.training.leetcode.utils.MatrixUtils.printMatrix;
 
 /**
- * Unfortunately, this solution did not pass test - it exceeded time limit.
- * The test case is test_case1.txt.
- *
- * However, this solution is good because it colors each island into a different color,
- * so it may be re-used in the future for problems where we need to color maps.
- * For example, mark all land with label i, where i is the i-th island.  1 <= i <= N.
- *
  * {@code matrix[x][y]} is {@code 0} - water.
  * {@code matrix[x][y]} is {@code 1} - land which we have not visited.
  * {@code matrix[x][y]} is {@code 2, 3, ...} - land which we have checked. We do not want to visit it again.
  * <p>
  * See {@link BFSMatrix}.
  */
-public class VisitIslandsIntegerSolution {
+public class VisitIslandsCharSolution {
 
     private static final LinkedList<Point> queue = new LinkedList<>();
 
     public static void main(String[] args) {
-        final String filename = "number_of_islands/test_case1.txt";
-        int[][] worldMap = readMatrix(filename);
+        final char[][] grid = Holder.create();
 
         long start = System.nanoTime();
-        final int islands = countIslands(worldMap);
+        final int islands = countIslands(grid);
         long end = System.nanoTime();
         float delta = end - start;
         float total = delta / 1000000;
@@ -39,10 +28,10 @@ public class VisitIslandsIntegerSolution {
 
         // World map.
         System.out.println();
-        printMatrix(worldMap);
+        printMatrix(grid);
     }
 
-    private static int countIslands(final int[][] matrix) {
+    private static int countIslands(final char[][] matrix) {
         final int n = matrix.length;
         if (n < 1) {
             return 0;
@@ -53,52 +42,52 @@ public class VisitIslandsIntegerSolution {
             return 0;
         }
 
-        int landCounter = 1; // 0 - water, 1 - unvisited land, 2, 3, ..., N - visited island land.
+        char landCounter = '1'; // 0 - water, 1 - unvisited land, 2, 3, ..., N - visited island land.
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 // water or visited land
-                if (matrix[i][j] != 1) {
+                if (matrix[i][j] != '1') {
                     continue;
                 }
 
                 landCounter++; // Discover and explore new land.
                 boolean unvisitedNeighbors = hasUnvisitedNeighbors(matrix, n, m, i, j);
                 if (!unvisitedNeighbors) {
-                    matrix[i][j] = landCounter;
+                    matrix[i][j] = '0';
                 } else {
-                    exploreLand(matrix, n, m, Point.of(i, j), landCounter);
+                    exploreLand(matrix, n, m, Point.of(i, j));
                 }
             }
         }
 
-        return landCounter - 1;
+        return landCounter - '1';
     }
 
     /**
      * This optimization allows me to pass {@code test_Case1.txt}.
      */
-    private static boolean hasUnvisitedNeighbors(int[][] matrix, int n, int m, int i, int j) {
+    private static boolean hasUnvisitedNeighbors(char[][] matrix, int n, int m, int i, int j) {
         if (i >= 1) {
-            if (matrix[i - 1][j] == 1) {
+            if (matrix[i - 1][j] == '1') {
                 return true;
             }
         }
 
         if (i < n - 1) {
-            if (matrix[i + 1][j] == 1) {
+            if (matrix[i + 1][j] == '1') {
                 return true;
             }
         }
 
         if (j >= 1) {
-            if (matrix[i][j - 1] == 1) {
+            if (matrix[i][j - 1] == '1') {
                 return true;
             }
         }
 
         if (j < m - 1) {
-            return matrix[i][j + 1] == 1;
+            return matrix[i][j + 1] == '1';
         }
 
         return false;
@@ -106,25 +95,22 @@ public class VisitIslandsIntegerSolution {
 
     /**
      * Visit the land using Breadth First search.
-     *
-     * @param landCounter - mark visited land with.
      */
-    private static void exploreLand(final int[][] matrix,
+    private static void exploreLand(final char[][] matrix,
                                     final int n,
                                     final int m,
-                                    final Point coordinates,
-                                    final int landCounter) {
+                                    final Point coordinates) {
 
         queue.add(coordinates);
 
         while (!queue.isEmpty()) {
             final Point visited = queue.remove();
-            if (matrix[visited.x][visited.y] != 1) {
+            if (matrix[visited.x][visited.y] != '1') {
                 continue;
             }
 
             // Visit current cell
-            matrix[visited.x][visited.y] = landCounter;
+            matrix[visited.x][visited.y] = '0';
 
             // Visit neighbors.
 
@@ -132,7 +118,7 @@ public class VisitIslandsIntegerSolution {
             final int yLeft = visited.y - 1;
             if (yLeft >= 0) {
                 final int xLeft = visited.x;
-                if (matrix[xLeft][yLeft] == 1) {
+                if (matrix[xLeft][yLeft] == '1') {
                     queue.add(new Point(xLeft, yLeft));
                 }
             }
@@ -141,7 +127,7 @@ public class VisitIslandsIntegerSolution {
             final int yRight = visited.y + 1;
             if (yRight < m) {
                 final int xRight = visited.x;
-                if (matrix[xRight][yRight] == 1) {
+                if (matrix[xRight][yRight] == '1') {
                     queue.add(new Point(xRight, yRight));
                 }
             }
@@ -150,7 +136,7 @@ public class VisitIslandsIntegerSolution {
             final int xUpper = visited.x - 1;
             if (xUpper >= 0) {
                 final int yUpper = visited.y;
-                if (matrix[xUpper][yUpper] == 1) {
+                if (matrix[xUpper][yUpper] == '1') {
                     queue.add(new Point(xUpper, yUpper));
                 }
             }
@@ -159,7 +145,7 @@ public class VisitIslandsIntegerSolution {
             final int xLower = visited.x + 1;
             if (xLower < n) {
                 final int yLower = visited.y;
-                if (matrix[xLower][yLower] == 1) {
+                if (matrix[xLower][yLower] == '1') {
                     queue.add(new Point(xLower, yLower));
                 }
             }

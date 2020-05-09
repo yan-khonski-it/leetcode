@@ -1,8 +1,8 @@
-package com.yk.leetcode.number_of_islands;
+package com.yk.training.leetcode.number_of_islands;
+
+import com.yk.training.leetcode.utils.FileUtils;
 
 import java.util.LinkedList;
-
-import static com.yk.leetcode.utils.FileUtils.readMatrix;
 
 /**
  * This helps to solve {@link VisitIslandsIntegerSolution}.
@@ -14,7 +14,7 @@ public class BFSMatrix {
 
     public static void main(String[] args) {
         final BFSMatrix bfsMatrix = new BFSMatrix();
-        final int[][] numericMatrix = readMatrix("utils/test_matrix.txt");
+        final int[][] numericMatrix = FileUtils.readMatrix("utils/test_matrix.txt");
         final Node[][] nodeMatrix = buildNodeMatrix(numericMatrix);
 
         long start = System.nanoTime();

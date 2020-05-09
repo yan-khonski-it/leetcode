@@ -1,4 +1,4 @@
-package com.yk.leetcode.binary_watch;
+package com.yk.training.leetcode.binary_watch;
 
 import java.util.ArrayList;
 import java.util.List;

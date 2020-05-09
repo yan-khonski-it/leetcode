@@ -1,4 +1,4 @@
-package com.yk.leetcode.number_of_islands;
+package com.yk.training.leetcode.number_of_islands;
 
 /**
  * Holds test case matrix as chars.
