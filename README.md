@@ -7,3 +7,5 @@ This repository contains general problems. There are also related repositories.
 ## Binary Search Tree
 https://github.com/yan-khonski-it/bst
 
+## Sudoku
+https://github.com/yan-khonski-it/sudoku
