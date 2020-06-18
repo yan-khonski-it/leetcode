@@ -1,8 +1,8 @@
 package com.yk.training.leetcode.merge_sorted_lists;
 
-import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.TreeMap;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * https://leetcode.com/problems/merge-k-sorted-lists/
@@ -50,7 +50,8 @@ public class PriorityQueueSolution {
         Integer index = min.index;
         Integer value = min.value;
 
-
+        ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+        readWriteLock.readLock().lock();
         lists[index] = lists[index].next;
 
         // Move index list to the next element
