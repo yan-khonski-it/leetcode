@@ -33,27 +33,27 @@ class Solution {
     }
 
     public void rotate(int[][] matrix) {
-        if (matrix.length == 1) {
+        if (matrix.length <= 1) {
             return;
         }
 
         final int layersCount = matrix.length / 2;
+        final int[] row0 = new int[matrix.length]; // common buffer for all layers row[0].
+
         for (int layer = 0; layer < layersCount; layer++) {
             final int layerSize = matrix.length - layer * 2;
-            if (layerSize < 0) {
+            if (layerSize <= 0) {
                 return;
             }
 
-            final int[] row0 = new int[layerSize];
             copyArray(matrix[layer], row0, layer, layerSize);
 
-            final int lowestRow = matrix.length - 1 - layer;
-            final int rightColumn = matrix.length - 1 - layer;
+            final int layerBorder = matrix.length - 1 - layer;
 
             rotateColumnIntoRowUpper(matrix, layer, layer, layer, layerSize);
-            rotateRowIntoColumnLeft(matrix, lowestRow, layer, layer, layerSize);
-            rotateColumnIntoRowLower(matrix, lowestRow, rightColumn, layer, layerSize);
-            copyArrayIntoColumn(matrix, row0, rightColumn, layer, layerSize);
+            rotateRowIntoColumnLeft(matrix, layerBorder, layer, layer, layerSize);
+            rotateColumnIntoRowLower(matrix, layerBorder, layerBorder, layer, layerSize);
+            copyArrayIntoColumn(matrix, row0, layerBorder, layer, layerSize);
         }
     }
 
