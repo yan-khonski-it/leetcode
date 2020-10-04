@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * https://leetcode.com/problems/binary-watch
- *
+ * <p>
  * https://leetcode.com/problems/binary-watch/discuss/601642/C%2B%2B-straight-solution-with-tables-of-hours-and-minutes
  */
 public class CountingHoursAndMinutesLedsSolution {
@@ -97,7 +97,7 @@ public class CountingHoursAndMinutesLedsSolution {
                 }
 
                 if (hoursLeds + minutesLeds == nLeds) {
-                    int [] possibleMinutes = getMinutesFromLed(minutesLeds);
+                    int[] possibleMinutes = getMinutesFromLed(minutesLeds);
                     combineHoursAndMinutes(possibleHours, possibleMinutes, result);
                 }
             }
@@ -115,24 +115,36 @@ public class CountingHoursAndMinutesLedsSolution {
     }
 
     private static int[] getHoursFromLed(final int nLed) {
-        return switch (nLed) {
-            case 0 -> hours0;
-            case 1 -> hours1;
-            case 2 -> hours2;
-            case 3 -> hours3;
-            default -> hours4;
-        };
+        switch (nLed) {
+            case 0:
+                return hours0;
+            case 1:
+                return hours1;
+            case 2:
+                return hours2;
+            case 3:
+                return hours3;
+            default:
+                return hours4;
+        }
     }
 
     private static int[] getMinutesFromLed(final int nLed) {
-        return switch (nLed) {
-            case 0 -> minutes0;
-            case 1 -> minutes1;
-            case 2 -> minutes2;
-            case 3 -> minutes3;
-            case 4 -> minutes4;
-            case 5 -> minutes5;
-            default -> minutes6;
-        };
+        switch (nLed) {
+            case 0:
+                return minutes0;
+            case 1:
+                return minutes1;
+            case 2:
+                return minutes2;
+            case 3:
+                return minutes3;
+            case 4:
+                return minutes4;
+            case 5:
+                return minutes5;
+            default:
+                return minutes6;
+        }
     }
 }
