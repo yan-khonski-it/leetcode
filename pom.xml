@@ -6,10 +6,15 @@
 
     <groupId>com.yk.training</groupId>
     <artifactId>leetcode</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>algorithms</module>
+        <module>concurrency</module>
+    </modules>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
